@@ -1,3 +1,3 @@
 # dotfiles
 
---bashとvimの設定ファイルリポジトリ
+* bashとvimの設定ファイルリポジトリ
