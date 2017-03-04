@@ -1,0 +1,1 @@
+/Users/okamuratakuya/dotfiles/.vimrc
