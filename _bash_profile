@@ -1,0 +1,33 @@
+
+if [ -f ~/.bashrc ] ; then
+. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin:$HOME/local/bin:/opt/bazel/0.5.4/bin/:$HOME/local/mecab-0.996
+
+export PATH
+
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/bin:/opt/cuda/8.0/bin:$PATH
+eval "$(pyenv init -)"
+
+
+export CPATH=/opt/cuda/8.0/include:$CPATH
+export LIBRARY_PATH=/opt/cuda/8.0/lib64:$HOME/local/lib:$LIBRARY_PATH
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/jcuda/lib:/opt/cudnn/8.0-v6.0/lib64:/opt/cuda/8.0/lib64:$HOME/local/lib
+export LD_LIBRARY_PATH
+
+export CUDA_DIR=/opt/cuda/8.0
+export CUDA_ROOT=/opt/cuda/8.0
+export CUDA_INC_DIR=/opt/cuda/8.0/include
+export CUDA_DEVICE_ORDER=PCI_BUS_ID 
+export CUDA_VISIBLE_DEVICES=1
+
+alias la='ls -la'
+
+function cd(){
+    builtin cd $1
+    ls
+}
