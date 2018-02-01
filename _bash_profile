@@ -22,7 +22,7 @@ export LD_LIBRARY_PATH
 export CUDA_DIR=/opt/cuda/8.0
 export CUDA_ROOT=/opt/cuda/8.0
 export CUDA_INC_DIR=/opt/cuda/8.0/include
-export CUDA_DEVICE_ORDER=PCI_BUS_ID 
+export CUDA_DEVICE_ORDER=PCI_BUS_ID
 export CUDA_VISIBLE_DEVICES=1
 
 alias la='ls -la'
