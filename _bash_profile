@@ -5,29 +5,17 @@ fi
 
 # User specific environment and startup programs
 
-PATH=$PATH:$HOME/.local/bin:$HOME/bin:$HOME/local/bin:/opt/bazel/0.5.4/bin/:$HOME/local/mecab-0.996
-
-export PATH
-
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin
 export PYENV_ROOT=$HOME/.pyenv
-export PATH=$PYENV_ROOT/bin:/opt/cuda/9.0/bin:$PATH
 eval "$(pyenv init -)"
 
+export CPATH=$HOME/local/include:$CPATH
+export LIBRARY_PATH=$HOME/local/lib:$LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
 
-export CPATH=/opt/cuda/9.0/include:$CPATH
-export LIBRARY_PATH=/opt/cuda/9.0/lib64:$HOME/local/lib:$LIBRARY_PATH
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/jcuda/lib:/opt/cudnn/9.0-v7.12/lib64:/opt/cuda/9.0/lib64:$HOME/local/lib
-export LD_LIBRARY_PATH
-
-export CUDA_DIR=/opt/cuda/9.0
-export CUDA_ROOT=/opt/cuda/9.0
-export CUDA_INC_DIR=/opt/cuda/9.0/include
+export CUDA_DIR=$HOME/local/src/cuda
+export CUDA_ROOT=$HOME/local/src/cuda
+export CUDA_INC_DIR=$HOME/local/include
 export CUDA_DEVICE_ORDER=PCI_BUS_ID
 export CUDA_VISIBLE_DEVICES=0
 
-alias la='ls -la'
-
-function cd(){
-    builtin cd $1
-    ls
-}
