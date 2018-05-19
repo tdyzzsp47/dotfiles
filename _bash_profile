@@ -10,8 +10,8 @@ export PYENV_ROOT=$HOME/.pyenv
 eval "$(pyenv init -)"
 
 export CPATH=$HOME/local/include:$CPATH
-export LIBRARY_PATH=$HOME/local/lib:$LIBRARY_PATH
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
+export LIBRARY_PATH=$HOME/local/lib:$HOME/local/lib/cuda/lib64:$LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib:$HOME/local/lib/cudnn/lib64
 
 export CUDA_DIR=$HOME/local/src/cuda
 export CUDA_ROOT=$HOME/local/src/cuda
