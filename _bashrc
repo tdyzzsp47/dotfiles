@@ -12,8 +12,10 @@ fi
 
 export PS1='[\u@\H \w] \n\$ '
 
+# ショートカット
 alias sp='source ~/.bash_profile'
 alias sr='source ~/.bashrc'
+alias e='emacs -nw'
 
 # 表示する系
 alias ls='ls --color=auto'
