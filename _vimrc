@@ -24,6 +24,10 @@ set smartcase " 小文字のみで検索したときに大文字小文字を無�
 set hlsearch " 検索結果をハイライト表示する
 set clipboard=unnamed " クリップボードと無名レジスタを連携
 
+" ctl+tで新規タブ
+nnoremap <silent><C-t> :tabnew<CR>
+nnoremap <silent><C-i> gt
+
 " NERDTreeを開くためのマッピング
 nnoremap <silent><C-e> :NERDTree<CR>
 
