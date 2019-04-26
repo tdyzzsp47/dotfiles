@@ -59,8 +59,10 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'w0rp/ale'
 " NeoBundle 'hynek/vim-python-pep8-indent'
 " NeoBundle 'andviro/flake8-vim'
+NeoBundle 'scrooloose/syntastic'
 
 
 " vimrc に記述されたプラグインでインストールされていないものがないかチェックする
@@ -70,6 +72,7 @@ call neobundle#end()
 filetype plugin indent on " ファイルタイプの検出を有効化
 set t_Co=256 " 色を設定
 colorscheme jellybeans
+
 
 " http://blog.remora.cx/2010/12/vim-ref-with-unite.html
 """""""""""""""""""""""""""""
@@ -254,3 +257,18 @@ endif
 
 "set snippet file dir
 let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/,~/.vim/snippets'
+
+
+" lintの設定
+""" Recommended settings
+""" see https://github.com/scrooloose/syntastic#settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_python_checkers = ['pyflakes', 'pep8']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_enable_signs = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
