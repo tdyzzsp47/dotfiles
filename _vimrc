@@ -1,47 +1,31 @@
-
-nnoremap <silent><C-e> :NERDTree<CR>
-
 " setting
-" バックアップファイルを生成しない
-set nobackup
-" スワップファイルを生成しない
-set noswapfile
+set nobackup "バックアップファイルを生成しない
+set noswapfile " スワップファイルを生成しない
+set backspace=indent,eol,start
 
 " visual
-" ウィンドウのタイトルバーにファイルのパス情報等を表示する
-set title
-" 行番号を表示する
-set number
-" カーソルの行を目立たせる
-set cursorline
-" 行末の一文字先までカーソルを移動できる
-set virtualedit=onemore
-" スマートインデント
-set smartindent
-" ペア括弧を表示する
-set showmatch
-" ステータスラインを常に表示
-set laststatus=2
+set title " ウィンドウのタイトルバーにファイルのパス情報等を表示する
+set number " 行番号を表示する
+set cursorline " カーソルの行を目立たせる
+set virtualedit=onemore " 行末の一文字先までカーソルを移動できる
+set smartindent " 適切なインデントを入れる
+set showmatch " ペア括弧を表示する
+set laststatus=2 " ステータスラインを常に表示
 
 " tab
-" タブの代わりに空白文字を挿入する
-set expandtab
-" タブ文字の表示幅
-set tabstop=4
-" Vimが挿入するインデントの幅
-set shiftwidth=4
+set expandtab " タブの代わりに空白文字を挿入する
+set tabstop=4 " タブ文字の表示幅
+set shiftwidth=4 " Vimが挿入するインデントの幅
 
 " カーソルを行頭、行末で止まらないようにする
 set whichwrap=b,s,h,l,<,>,[,]
-" 検索ワードの最初の文字を入力した時点で検索を開始する
-set incsearch
-" 小文字のみで検索したときに大文字小文字を無視する
-set smartcase
-" 検索結果をハイライト表示する
-set hlsearch
-" クリップボードと無名レジスタを連携
-set clipboard=unnamed
+set incsearch " 検索ワードの最初の文字を入力した時点で検索を開始する
+set smartcase " 小文字のみで検索したときに大文字小文字を無視する
+set hlsearch " 検索結果をハイライト表示する
+set clipboard=unnamed " クリップボードと無名レジスタを連携
 
+" NERDTreeを開くためのマッピング
+nnoremap <silent><C-e> :NERDTree<CR>
 
 " 折り返し時に表示行単位で移動できるようにする
 nnoremap j gj
@@ -72,6 +56,9 @@ NeoBundle 'bronson/vim-trailing-whitespace'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 " NeoBundle 'hynek/vim-python-pep8-indent'
 " NeoBundle 'andviro/flake8-vim'
 
@@ -80,8 +67,8 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundleCheck
 call neobundle#end()
 
-filetype plugin indent on
-set t_Co=256
+filetype plugin indent on " ファイルタイプの検出を有効化
+set t_Co=256 " 色を設定
 colorscheme jellybeans
 
 " http://blog.remora.cx/2010/12/vim-ref-with-unite.html
@@ -177,16 +164,16 @@ endif
 """"""""""""""""""""""""""""""
 " マウスでカーソル移動できる
 """"""""""""""""""""""""""""""
-"if has('mouse')
-"    set mouse=a
-"    if has('mouse_sgr')
-"        set ttymouse=sgr
-"    elseif v:version > 703 || v:version is 703 && has('patch632')
-"        set ttymouse=sgr
-"    else
-"        set ttymouse=xterm2
-"    endif
-"endif
+if has('mouse')
+    set mouse=a
+    if has('mouse_sgr')
+        set ttymouse=sgr
+    elseif v:version > 703 || v:version is 703 && has('patch632')
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
+    endif
+endif
 """"""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""
@@ -206,28 +193,6 @@ if &term =~ "xterm"
 endif
 """"""""""""""""""""""""""""""
 
-
-" original http://stackoverflow.com/questions/12374200/using-uncrustify-with-vim/15513829#15513829
-"function! Preserve(command)
-"    " Save the last search.
-"    let search = @/
-"    " Save the current cursor position.
-"    let cursor_position = getpos('.')
-"    " Save the current window position.
-"    normal! H
-"    let window_position = getpos('.')
-"    call setpos('.', cursor_position)
-"    " Execute the command.
-"    execute a:command
-"    " Restore the last search.
-"    let @/ = search
-"    " Restore the previous window position.
-"    call setpos('.', window_position)
-"    normal! zt
-"    " Restore the previous cursor position.
-"    call setpos('.', cursor_position)
-"endfunction
-
 " function! Autopep8()
 "     call Preserve(':silent %!autopep8 -')
 " endfunction
@@ -236,44 +201,24 @@ endif
 " autocmd FileType python nnoremap <S-f> :call Autopep8()<CR>
 "
 
-
 " 以下neocompleteの設定（補完機能）
 highlight Pmenu ctermbg=4
 highlight PmenuSel ctermbg=1
 highlight PMenuSbar ctermbg=4
 
-" 補完ウィンドウの設定
-set completeopt=menuone
+set completeopt=menuone " 補完ウィンドウの設定
 
-" 補完ウィンドウの設定
-set completeopt=menuone
-
-" rsenseでの自動補完機能を有効化
-let g:rsenseUseOmniFunc = 1
+let g:rsenseUseOmniFunc = 1 " rsenseでの自動補完機能を有効化
 " let g:rsenseHome = '/usr/local/lib/rsense-0.3'
 
-" auto-ctagsを使ってファイル保存時にtagsファイルを更新
-let g:auto_ctags = 1
-
-" 起動時に有効化
-let g:neocomplcache_enable_at_startup = 1
-
-" 大文字が入力されるまで大文字小文字の区別を無視する
-let g:neocomplcache_enable_smart_case = 1
-
-" _(アンダースコア)区切りの補完を有効化
-let g:neocomplcache_enable_underbar_completion = 1
-
+let g:auto_ctags = 1 " auto-ctagsを使ってファイル保存時にtagsファイルを更新
+let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
+let g:neocomplcache_enable_smart_case = 1 " 大文字が入力されるまで大文字小文字の区別を無視する
+let g:neocomplcache_enable_underbar_completion = 1 " _(アンダースコア)区切りの補完を有効化
 let g:neocomplcache_enable_camel_case_completion  =  1
-
-" 最初の補完候補を選択状態にする
-let g:neocomplcache_enable_auto_select = 1
-
-" ポップアップメニューで表示される候補の数
-let g:neocomplcache_max_list = 20
-
-" シンタックスをキャッシュするときの最小文字長
-let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_enable_auto_select = 1 " 最初の補完候補を選択状態にする
+let g:neocomplcache_max_list = 20 " ポップアップメニューで表示される候補の数
+let g:neocomplcache_min_syntax_length = 3 " シンタックスをキャッシュするときの最小文字長
 
 " 補完の設定
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
@@ -286,3 +231,26 @@ if !exists('g:neocomplete#keyword_patterns')
         let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+
+" スニペットの設定
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+"set snippet file dir
+let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/,~/.vim/snippets'
