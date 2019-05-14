@@ -28,6 +28,13 @@ set clipboard=unnamed " クリップボードと無名レジスタを連携
 nnoremap <silent><C-t> :tabnew<CR>
 nnoremap <silent><C-i> gt
 
+" ctl+enterでターミナル
+nnoremap <silent><C-o> :call TermOpen()<CR>
+
+" 画面分割の操作
+nnoremap <silent><C-l> <C-w>>
+nnoremap <silent><C-h> <C-w><
+
 " NERDTreeを開くためのマッピング
 nnoremap <silent><C-e> :NERDTree<CR>
 
@@ -37,7 +44,6 @@ nnoremap k gk
 
 " 構文ごとに文字色を変化させる
 syntax on
-
 " neobundle settings {{{
 if has('vim_starting')
     set nocompatible
@@ -276,3 +282,15 @@ let g:syntastic_enable_signs = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" ターミナル関係の設定
+function! TermOpen()
+    " execute "tabnew"
+    if empty(term_list())
+        execute "vs"
+        execute "wincmd w"
+        execute "terminal ++curwin"
+    else
+        call win_gotoid(win_findbuf(term_list()[0])[0])
+    endif
+endfunction

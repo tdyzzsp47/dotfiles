@@ -5,17 +5,3 @@ fi
 
 # User specific environment and startup programs
 
-export PATH=$PATH:$HOME/.local/bin:$HOME/bin
-export PYENV_ROOT=$HOME/.pyenv
-eval "$(pyenv init -)"
-
-export CPATH=$HOME/local/include:$CPATH
-export LIBRARY_PATH=$HOME/local/lib:$HOME/local/lib/cuda/lib64:$LIBRARY_PATH
-export LD_LIBRARY_PATH=$HOME/local/lib:$HOME/local/lib/cudnn/lib64:$HOME/local/lib/cuda/lib64
-
-export CUDA_DIR=$HOME/local/src/cuda
-export CUDA_ROOT=$HOME/local/src/cuda
-export CUDA_INC_DIR=$HOME/local/include
-export CUDA_DEVICE_ORDER=PCI_BUS_ID
-export CUDA_VISIBLE_DEVICES=0
-
