@@ -1,7 +1,46 @@
+set nocompatible
+filetype off
+filetype plugin indent off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+
+" 導入したいプラグインを以下に列挙
+" Plugin '[Github Author]/[Github repo]' の形式で記入
+
+" 左端にgit diffのステータスを表示（@TODO: 追加以外の差分がなぜか表示されない）
+Plugin 'airblade/vim-gitgutter'
+
+Plugin 'nanotech/jellybeans.vim'
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+
+Plugin 'Townk/vim-autoclose'
+
+Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/neomru.vim'
+Plugin 'tomtom/tcomment_vim'
+
+Plugin 'Shougo/neocomplcache'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'w0rp/ale'
+Plugin 'scrooloose/syntastic'
+Plugin 'posva/vim-vue'
+Plugin 'fatih/vim-go'
+Plugin 'skanehira/preview-markdown.vim'
+"
+call vundle#end()
+
+
 " setting
 set nobackup "バックアップファイルを生成しない
 set noswapfile " スワップファイルを生成しない
 set backspace=indent,eol,start
+set updatetime=250
 
 " visual
 set title " ウィンドウのタイトルバーにファイルのパス情報等を表示する
@@ -17,8 +56,7 @@ set expandtab " タブの代わりに空白文字を挿入する
 set tabstop=4 " タブ文字の表示幅
 set shiftwidth=4 " Vimが挿入するインデントの幅
 
-" カーソルを行頭、行末で止まらないようにする
-set whichwrap=b,s,h,l,<,>,[,]
+set whichwrap=b,s,h,l,<,>,[,] " カーソルを行頭、行末で止まらないようにする
 set incsearch " 検索ワードの最初の文字を入力した時点で検索を開始する
 set smartcase " 小文字のみで検索したときに大文字小文字を無視する
 set hlsearch " 検索結果をハイライト表示する
@@ -28,15 +66,19 @@ set clipboard=unnamed " クリップボードと無名レジスタを連携
 nnoremap <silent><C-t> :tabnew<CR>
 nnoremap <silent><C-i> gt
 
-" ctl+enterでターミナル
+" ctl+oでターミナル画面
 nnoremap <silent><C-o> :call TermOpen()<CR>
 
-" 画面分割の操作
+" 画面分割の幅操作
 nnoremap <silent><C-l> <C-w>>
 nnoremap <silent><C-h> <C-w><
 
 " NERDTreeを開くためのマッピング
 nnoremap <silent><C-e> :NERDTree<CR>
+let g:nerdtree_tabs_open_on_console_startup=1 " 起動時に開く
+let NERDTreeShowHidden = 1 " 「.」始まりのファイルも表示
+" NERDTreeだけが残る場合はvimを終了
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " 折り返し時に表示行単位で移動できるようにする
 nnoremap j gj
@@ -44,42 +86,7 @@ nnoremap k gk
 
 " 構文ごとに文字色を変化させる
 syntax on
-" neobundle settings {{{
-if has('vim_starting')
-    set nocompatible
-    " neobundle をインストールしていない場合は自動インストール
-    if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
-        echo "install neobundle..."
-        :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
-    endif
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
 
-call neobundle#begin(expand('~/.vim/bundle'))
-let g:neobundle_default_git_protocol='https'
-
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'Townk/vim-autoclose'
-NeoBundle 'bronson/vim-trailing-whitespace'
-NeoBundle 'Shougo/unite.vim'
-" NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'w0rp/ale'
-" NeoBundle 'hynek/vim-python-pep8-indent'
-" NeoBundle 'andviro/flake8-vim'
-NeoBundle 'scrooloose/syntastic'
-
-
-" vimrc に記述されたプラグインでインストールされていないものがないかチェックする
-NeoBundleCheck
-call neobundle#end()
-
-filetype plugin indent on " ファイルタイプの検出を有効化
 set t_Co=256 " 色を設定
 colorscheme jellybeans
 
@@ -95,7 +102,7 @@ noremap <C-P> :Unite buffer<CR>
 " ファイル一覧
 noremap <C-N> :Unite -buffer-name=file file<CR>
 " 最近使ったファイルの一覧
-"noremap <C-Z> :Unite file_mru<CR>
+noremap <C-Z> :Unite file_mru<CR>
 " sourcesを「今開いているファイルのディレクトリ」とする
 noremap :uff :<C-u>UniteWithBufferDir file -buffer-name=file<CR>
 " ウィンドウを分割して開く
@@ -108,6 +115,7 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vspli
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 """""""""""""""""""""""""""""
+
 
 " http://inari.hatenablog.com/entry/2014/05/05/231307
 """""""""""""""""""""""""""""
@@ -132,35 +140,35 @@ endif
 """"""""""""""""""""""""""""""
 " 挿入モード時、ステータスラインの色を変更
 """"""""""""""""""""""""""""""
-let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
+" let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
+"
+" if has('syntax')
+"   augroup InsertHook
+"     autocmd!
+"     autocmd InsertEnter * call s:StatusLine('Enter')
+"     autocmd InsertLeave * call s:StatusLine('Leave')
+"   augroup END
+" endif
 
-if has('syntax')
-  augroup InsertHook
-    autocmd!
-    autocmd InsertEnter * call s:StatusLine('Enter')
-    autocmd InsertLeave * call s:StatusLine('Leave')
-  augroup END
-endif
-
-let s:slhlcmd = ''
-function! s:StatusLine(mode)
-  if a:mode == 'Enter'
-    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-    silent exec g:hi_insert
-  else
-    highlight clear StatusLine
-    silent exec s:slhlcmd
-  endif
-endfunction
-
-function! s:GetHighlight(hi)
-  redir => hl
-  exec 'highlight '.a:hi
-  redir END
-  let hl = substitute(hl, '[\r\n]', '', 'g')
-  let hl = substitute(hl, 'xxx', '', '')
-  return hl
-endfunction
+" let s:slhlcmd = ''
+" function! s:StatusLine(mode)
+"   if a:mode == 'Enter'
+"     silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+"     silent exec g:hi_insert
+"   else
+"     highlight clear StatusLine
+"     silent exec s:slhlcmd
+"   endif
+" endfunction
+"
+" function! s:GetHighlight(hi)
+"   redir => hl
+"   exec 'highlight '.a:hi
+"   redir END
+"   let hl = substitute(hl, '[\r\n]', '', 'g')
+"   let hl = substitute(hl, 'xxx', '', '')
+"   return hl
+" endfunction
 """"""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""
@@ -294,3 +302,11 @@ function! TermOpen()
         call win_gotoid(win_findbuf(term_list()[0])[0])
     endif
 endfunction
+
+"if neobundle#tap('vim-trailing-whitespace')
+"    " uniteでスペースが表示されるので、設定でOFFにします。
+"    let g:extra_whitespace_ignored_filetypes = ['unite']
+"endif
+
+filetype plugin indent on
+
